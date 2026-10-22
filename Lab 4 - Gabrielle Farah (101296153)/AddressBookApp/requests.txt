@@ -1,0 +1,32 @@
+SYSC 4806 - Lab 4: HTTP requests for the AddressBook app
+
+
+Start the app first (run AddressBookApplication). It listens on http://localhost:8080
+
+NOTE: on startup the demo method in AddressBookApplication already saves
+  - buddies 1-3 (Homer, Marge, Bart)
+  - address book 1 with buddies 4-5 (Lisa, Maggie)
+So the first address book created below gets id 2 and the first buddies
+created get ids 6 and 7.
+
+
+1) Create an address book
+curl -X POST http://localhost:8080/addressbooks
+
+2) Create buddies
+curl -X POST http://localhost:8080/buddies -H "Content-Type: application/json" -d "{\"name\":\"Ned\",\"phoneNumber\":\"613-555-0200\"}"
+curl -X POST http://localhost:8080/buddies -H "Content-Type: application/json" -d "{\"name\":\"Moe\",\"phoneNumber\":\"613-555-0201\"}"
+
+3) Add a given buddy to a given address book
+(POST /addressbooks/{addressBookId}/buddies/{buddyId})
+curl -X POST http://localhost:8080/addressbooks/2/buddies/6
+curl -X POST http://localhost:8080/addressbooks/2/buddies/7
+
+4) View the data as JSON
+curl http://localhost:8080/addressbooks
+curl http://localhost:8080/addressbooks/2
+curl http://localhost:8080/buddies
+
+5) Thymeleaf view of the buddies in an address book
+Open in a browser: http://localhost:8080/view/addressbooks/2
+(the pre-populated one: http://localhost:8080/view/addressbooks/1)

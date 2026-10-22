@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Address Book</title>
+</head>
+<body>
+<p><a th:href="@{/}">&larr; All address books</a></p>
+
+<h1>Address Book #<span th:text="${addressBook.id}">1</span></h1>
+
+<p th:if="${#lists.isEmpty(addressBook.buddies)}">This address book has no buddies yet.</p>
+
+<table th:unless="${#lists.isEmpty(addressBook.buddies)}" border="1" cellpadding="6">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="buddy : ${addressBook.buddies}">
+        <td th:text="${buddy.name}">Homer</td>
+        <td th:text="${buddy.phoneNumber}">613-555-0100</td>
+        <td th:text="${buddy.address}">742 Evergreen Terrace</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Add a buddy</h2>
+<form th:action="@{/view/addressbooks/{id}/buddies(id=${addressBook.id})}" method="post">
+    <p><label>Name: <input type="text" name="name" required="required"/></label></p>
+    <p><label>Phone number: <input type="text" name="phoneNumber" required="required"/></label></p>
+    <p><label>Address: <input type="text" name="address"/></label></p>
+    <button type="submit">Add buddy</button>
+</form>
+</body>
+</html>
